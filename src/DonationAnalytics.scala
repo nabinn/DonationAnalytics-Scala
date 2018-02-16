@@ -1,6 +1,7 @@
 import scala.io.Source
 import java.io.{FileNotFoundException, IOException, PrintWriter, File}
 import scala.collection.mutable.{Map,HashMap}
+import scala.collection.immutable.{Map => immutableMap}
 import java.time.format.{DateTimeFormatter, DateTimeParseException} 
 import java.time.LocalDate
 import util.control.Breaks._
@@ -8,7 +9,7 @@ import scala.util.Sorting
 
 object DonationAnalytics {
   
-  def getFieldToIndex():Map[String, Int]= {
+  def getFieldToIndex():immutableMap[String, Int]= {
     //data fields as given here: https://goo.gl/89YTjW
     val FIELDS:String = """ CMTE_ID,AMNDT_IND,RPT_TP,TRANSACTION_PGI,IMAGE_NUM,
         TRANSACTION_TP,ENTITY_TP,NAME,CITY,STATE,ZIP_CODE,EMPLOYER,
@@ -16,12 +17,15 @@ object DonationAnalytics {
         FILE_NUM,MEMO_CD,MEMO_TEXT,SUB_ID"""
     
     val FIELD_LIST = FIELDS.replaceAll(" ", "").replaceAll("\n", "").replaceAll("\t", "").split(",")
-   
+   /*
     val field2Index:Map[String, Int] = new HashMap()
     for ( idx <- 0 until FIELD_LIST.length ){
       field2Index += (FIELD_LIST(idx) -> idx)
     }    
+    
     field2Index
+    */
+    (FIELD_LIST zip (0 until FIELD_LIST.length)).toMap
   }
   
   
@@ -69,7 +73,7 @@ object DonationAnalytics {
     val donations:Map[(String, String, Int),Array[Int]] = new HashMap()
     
     
-    val field2Index:Map[String, Int]=getFieldToIndex
+    val field2Index:immutableMap[String, Int]=getFieldToIndex
     
     val source = Source.fromFile(inputDataFile)
     val destination = new PrintWriter(new File(outputFile))
