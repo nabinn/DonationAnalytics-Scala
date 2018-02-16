@@ -1,5 +1,5 @@
 ## Donation Analytics - Scala
-This repo contains solution to [insight data engineering challenge](https://github.com/InsightDataScience/donation-analytics) using Scala. This is a work in progress and the code is not optimized. 
+This repo contains solution to [insight data engineering challenge](https://github.com/InsightDataScience/donation-analytics) using Scala. This is a work in progress and the code needs optimization.
 
 ## Requirements
 - Scala 2.12.3
