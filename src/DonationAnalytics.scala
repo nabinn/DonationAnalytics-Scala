@@ -119,8 +119,9 @@ object DonationAnalytics {
                         val numDonations = donation_count(cmteId, zip, year)
                         val totalAmt = donation_sum(cmteId, zip, year)
                         val percentileIdx = getPercentileIndex(numDonations, percentileValue)
-                        Sorting.quickSort(donations(cmteId, zip, year))
-                        val percentileAmt = donations(cmteId, zip, year)(percentileIdx)
+                        //Sorting.quickSort(donations(cmteId, zip, year))
+                        val sortedDonations = donations(cmteId, zip, year).sorted
+                        val percentileAmt = sortedDonations(percentileIdx)
                         destination.write(s"$cmteId|$zip|$year|$percentileAmt|$totalAmt|$numDonations\n")
                     }else{
                         // add this donor to donors
