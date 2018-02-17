@@ -1,6 +1,6 @@
 import scala.io.Source
 import java.io.{FileNotFoundException, IOException, PrintWriter, File}
-import scala.collection.mutable.{Map,HashMap}
+import scala.collection.mutable.{Map,HashMap, ArrayBuffer}
 import scala.collection.immutable.{Map => immutableMap}
 import java.time.format.{DateTimeFormatter, DateTimeParseException} 
 import java.time.LocalDate
@@ -70,7 +70,7 @@ object DonationAnalytics {
     val donors:Map[(String, String),Int] = new HashMap()
     val donation_count:Map[(String, String, Int),Int] = new HashMap()
     val donation_sum:Map[(String, String, Int),Int] = new HashMap()
-    val donations:Map[(String, String, Int),Array[Int]] = new HashMap()
+    val donations:Map[(String, String, Int), ArrayBuffer[Int]] = new HashMap()
     
     
     val field2Index:immutableMap[String, Int]=getFieldToIndex
@@ -110,7 +110,7 @@ object DonationAnalytics {
                      if (donations.contains((cmteId, zip, year))){
                        donation_count(cmteId, zip, year) += 1
                        donation_sum(cmteId, zip, year) += amount
-                       donations(cmteId, zip, year) ++ Array(amount)
+                       donations(cmteId, zip, year) += amount
                        
                      }else{
                        donation_count += (cmteId, zip, year) -> 1
