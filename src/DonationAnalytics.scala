@@ -115,7 +115,7 @@ object DonationAnalytics {
                      }else{
                        donation_count += (cmteId, zip, year) -> 1
                        donation_sum += (cmteId, zip, year) -> amount
-                       donations += (cmteId, zip, year) -> Array(amount)
+                       donations += (cmteId, zip, year) -> ArrayBuffer(amount)
                      }
                      
                     // if this donor is a repeat donor, write data to output file
